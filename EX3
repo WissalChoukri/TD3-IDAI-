@@ -1,0 +1,60 @@
+#include <iostream>
+#include <list>
+#include <string>
+
+struct Personne {
+    std::string nom;
+    std::string prenom;
+    int age;
+};
+
+bool operator<(const Personne& personne1, const Personne& personne2) {
+    // Compare les noms, puis les prénoms en ordre alphabétique
+    if (personne1.nom != personne2.nom) {
+        return personne1.nom < personne2.nom;
+    }
+    return personne1.prenom < personne2.prenom;
+}
+
+int main() {
+    std::list<Personne> personnes;
+    int choix;
+
+    do {
+        std::cout << "1. Ajouter une personne" << std::endl;
+        std::cout << "2. Trier la liste par nom et prénom" << std::endl;
+        std::cout << "3. Afficher la liste triée" << std::endl;
+        std::cout << "4. Quitter" << std::endl;
+        std::cout << "Choix : ";
+        std::cin >> choix;
+
+        switch (choix) {
+            case 1:
+                Personne personne;
+                std::cout << "Entrez le nom de la personne : ";
+                std::cin.ignore(); // Ignorer le caractère de nouvelle ligne laissé par le précédent "cin"
+                std::getline(std::cin, personne.nom);
+                std::cout << "Entrez le prénom de la personne : ";
+                std::getline(std::cin, personne.prenom);
+                std::cout << "Entrez l'âge de la personne : ";
+                std::cin >> personne.age;
+                personnes.push_back(personne);
+                break;
+            case 2:
+                personnes.sort();
+                break;
+            case 3:
+                std::cout << "Liste triée par nom et prénom : " << std::endl;
+                for (const Personne& personne : personnes) {
+                    std::cout << "Nom : " << personne.nom << ", Prénom : " << personne.prenom << ", Âge : " << personne.age << std::endl;
+                }
+                break;
+            case 4:
+                break;
+            default:
+                std::cout << "Choix invalide." << std::endl;
+        }
+    } while (choix != 4);
+
+    return 0;
+}
