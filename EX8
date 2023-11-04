@@ -9,7 +9,6 @@ int main() {
     int entier = 5;
     double reel = 3.14;
 
-    // Utilisation de la fonction modèle pour calculer le carré de différents types de valeurs
     int carreEntier = carre(entier);
     double carreReel = carre(reel);
 
