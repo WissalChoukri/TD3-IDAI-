@@ -9,7 +9,6 @@ struct Personne {
 };
 
 bool operator<(const Personne& personne1, const Personne& personne2) {
-    // Compare les noms, puis les prénoms en ordre alphabétique
     if (personne1.nom != personne2.nom) {
         return personne1.nom < personne2.nom;
     }
@@ -32,7 +31,7 @@ int main() {
             case 1:
                 Personne personne;
                 std::cout << "Entrez le nom de la personne : ";
-                std::cin.ignore(); // Ignorer le caractère de nouvelle ligne laissé par le précédent "cin"
+                std::cin.ignore(); 
                 std::getline(std::cin, personne.nom);
                 std::cout << "Entrez le prénom de la personne : ";
                 std::getline(std::cin, personne.prenom);
