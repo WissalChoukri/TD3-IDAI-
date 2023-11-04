@@ -1,0 +1,57 @@
+#include <iostream>
+#include <set>
+#include <vector>
+#include <list>
+
+// 1. Créer un ensemble pour les entiers de 1 à 100
+std::set<int> createSet() {
+    std::set<int> integerSet;
+    for (int i = 1; i <= 100; ++i) {
+        integerSet.insert(i);
+    }
+    return integerSet;
+}
+
+// 2. Recherche dans l'ensemble
+template <typename T>
+bool recherche(const T& container, const int& valeur) {
+    return container.find(valeur) != container.end();
+}
+
+// 3. Recherche en utilisant des itérateurs
+template <typename Iterator, typename Value>
+bool recherche(Iterator begin, Iterator end, const Value& valeur) {
+    while (begin != end) {
+        if (*begin == valeur) {
+            return true;
+        }
+        ++begin;
+    }
+    return false;
+}
+
+int main() {
+    // Exemple d'appel sur différents types de conteneurs
+
+    // 1. Ensemble d'entiers de 1 à 100
+    std::set<int> integerSet = createSet();
+
+    // 2. Recherche dans l'ensemble
+    int valeur1 = 42;
+    bool resultat1 = recherche(integerSet, valeur1);
+    std::cout << "Est " << valeur1 << " présent dans l'ensemble ? " << (resultat1 ? "Oui" : "Non") << std::endl;
+
+    // 3. Recherche en utilisant des itérateurs sur un vecteur de chaînes
+    std::vector<std::string> stringVector = {"apple", "banana", "cherry", "date"};
+    std::string valeur2 = "banana";
+    bool resultat2 = recherche(stringVector.begin(), stringVector.end(), valeur2);
+    std::cout << "Est \"" << valeur2 << "\" présent dans le vecteur de chaînes ? " << (resultat2 ? "Oui" : "Non") << std::endl;
+
+    // 4. Recherche en utilisant des itérateurs sur une liste d'entiers
+    std::list<int> integerList = {10, 20, 30, 40, 50};
+    int valeur3 = 30;
+    bool resultat3 = recherche(integerList.begin(), integerList.end(), valeur3);
+    std::cout << "Est " << valeur3 << " présent dans la liste d'entiers ? " << (resultat3 ? "Oui" : "Non") << std::endl;
+
+    return 0;
+}
