@@ -1,0 +1,87 @@
+#include <iostream>
+#include <list>
+
+void triABulles(std::list<int>& liste) {
+    bool echange;
+    do {
+        echange = false;
+        for (auto it = liste.begin(); it != std::prev(liste.end()); ++it) {
+            if (*it > *std::next(it)) {
+                std::swap(*it, *std::next(it));
+                echange = true;
+            }
+        }
+    } while (echange);
+}
+
+void triParSelection(std::list<int>& liste) {
+    for (auto it = liste.begin(); it != std::prev(liste.end()); ++it) {
+        auto min_element = it;
+        for (auto j = std::next(it); j != liste.end(); ++j) {
+            if (*j < *min_element) {
+                min_element = j;
+            }
+        }
+        if (min_element != it) {
+            std::swap(*it, *min_element);
+        }
+    }
+}
+
+void triParInsertion(std::list<int>& liste) {
+    for (auto it = std::next(liste.begin()); it != liste.end(); ++it) {
+        int element = *it;
+        auto j = it;
+        while (j != liste.begin() && *std::prev(j) > element) {
+            *j = *std::prev(j);
+            --j;
+        }
+        *j = element;
+    }
+}
+
+int main() {
+    std::list<int> entiers;
+    int nombre, choix;
+
+    do {
+        std::cout << "1. Ajouter un entier" << std::endl;
+        std::cout << "2. Trier la liste avec le tri à bulles" << std::endl;
+        std::cout << "3. Trier la liste avec le tri par sélection" << std::endl;
+        std::cout << "4. Trier la liste avec le tri par insertion" << std::endl;
+        std::cout << "5. Quitter" << std::endl;
+        std::cout << "Choix : ";
+        std::cin >> choix;
+
+        switch (choix) {
+            case 1:
+                std::cout << "Entrez un entier : ";
+                std::cin >> nombre;
+                entiers.push_back(nombre);
+                break;
+            case 2:
+                triABulles(entiers);
+                break;
+            case 3:
+                triParSelection(entiers);
+                break;
+            case 4:
+                triParInsertion(entiers);
+                break;
+            case 5:
+                break;
+            default:
+                std::cout << "Choix invalide." << std::endl;
+        }
+
+        if (choix != 5) {
+            std::cout << "Liste triée : ";
+            for (const int& elem : entiers) {
+                std::cout << elem << " ";
+            }
+            std::cout << std::endl;
+        }
+    } while (choix != 5);
+
+    return 0;
+}
