@@ -1,0 +1,15 @@
+a/ Pour la classe point, x et y sont de type char ; cependant, en passant des entiers (60 et 65) comme arguments dans le constructeur, vous obtenez 
+une conversion implicite en caractères, ce qui affiche des caractères plutôt que des valeurs numériques.
+
+b/template <class T>
+class point {
+    T x, y; // coordonnees
+public:
+    point(T abs, T ord) { x = abs; y = ord; }
+    void affiche();
+};
+
+template <class T>
+void point<T>::affiche() {
+    cout << "Coordonnees : " << x << " " << y << "\n";
+}
