@@ -1,0 +1,58 @@
+#include <iostream>
+
+class NombreComplexe {
+public:
+    double reel;
+    double imaginaire;
+
+    NombreComplexe(double reel, double imaginaire) : reel(reel), imaginaire(imaginaire) {}
+
+    NombreComplexe operator+(const NombreComplexe& autre) {
+        return NombreComplexe(reel + autre.reel, imaginaire + autre.imaginaire);
+    }
+
+    NombreComplexe operator-(const NombreComplexe& autre) {
+        return NombreComplexe(reel - autre.reel, imaginaire - autre.imaginaire);
+    }
+
+    NombreComplexe operator*(const NombreComplexe& autre) {
+        double nouveauReel = reel * autre.reel - imaginaire * autre.imaginaire;
+        double nouveauImaginaire = reel * autre.imaginaire + imaginaire * autre.reel;
+        return NombreComplexe(nouveauReel, nouveauImaginaire);
+    }
+
+    NombreComplexe operator/(const NombreComplexe& autre) {
+        double diviseur = autre.reel * autre.reel + autre.imaginaire * autre.imaginaire;
+        double nouveauReel = (reel * autre.reel + imaginaire * autre.imaginaire) / diviseur;
+        double nouveauImaginaire = (imaginaire * autre.reel - reel * autre.imaginaire) / diviseur;
+        return NombreComplexe(nouveauReel, nouveauImaginaire);
+    }
+};
+
+int main() {
+    double reel1, imaginaire1, reel2, imaginaire2;
+
+    std::cout << "Entrez la partie réelle du premier nombre complexe : ";
+    std::cin >> reel1;
+    std::cout << "Entrez la partie imaginaire du premier nombre complexe : ";
+    std::cin >> imaginaire1;
+    std::cout << "Entrez la partie réelle du deuxième nombre complexe : ";
+    std::cin >> reel2;
+    std::cout << "Entrez la partie imaginaire du deuxième nombre complexe : ";
+    std::cin >> imaginaire2;
+
+    NombreComplexe nombre1(reel1, imaginaire1);
+    NombreComplexe nombre2(reel2, imaginaire2);
+
+    NombreComplexe addition = nombre1 + nombre2;
+    NombreComplexe soustraction = nombre1 - nombre2;
+    NombreComplexe multiplication = nombre1 * nombre2;
+    NombreComplexe division = nombre1 / nombre2;
+
+    std::cout << "Addition : " << addition.reel << " + " << addition.imaginaire << "i" << std::endl;
+    std::cout << "Soustraction : " << soustraction.reel << " - " << soustraction.imaginaire << "i" << std::endl;
+    std::cout << "Multiplication : " << multiplication.reel << " + " << multiplication.imaginaire << "i" << std::endl;
+    std::cout << "Division : " << division.reel << " + " << division.imaginaire << "i" << std::endl;
+
+    return 0;
+}
