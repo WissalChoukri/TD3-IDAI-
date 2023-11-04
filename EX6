@@ -1,0 +1,85 @@
+#include <iostream>
+#include <cassert>
+
+class vect {
+protected:
+    int nelem;
+    int* adr;
+
+public:
+    vect(int n) : nelem(n), adr(new int[n]) {
+        // Initialisation du vecteur
+    }
+
+    ~vect() {
+        delete[] adr;
+    }
+
+    int& operator[](int index) {
+        assert(index >= 0 && index < nelem);
+        return adr[index];
+    }
+};
+
+class vectok : public vect {
+public:
+    vectok(int n) : vect(n) {
+        // Constructeur par défaut
+    }
+
+    vectok(const vectok& other) : vect(other.nelem) {
+        // Constructeur par recopie
+        for (int i = 0; i < nelem; ++i) {
+            adr[i] = other.adr[i];
+        }
+    }
+
+    vectok& operator=(const vectok& other) {
+        if (this != &other) {
+            delete[] adr;
+            nelem = other.nelem;
+            adr = new int[nelem];
+            for (int i = 0; i < nelem; ++i) {
+                adr[i] = other.adr[i];
+            }
+        }
+        return *this;
+    }
+
+    int taille() {
+        return nelem;
+    }
+};
+
+int main() {
+    vectok vect1(5);
+    for (int i = 0; i < vect1.taille(); ++i) {
+        vect1[i] = i * 10;
+    }
+
+    vectok vect2 = vect1; // Utilisation du constructeur par recopie
+    vect2[3] = 99; // Modification de vect2
+
+    vectok vect3(3);
+    vect3 = vect1; // Utilisation de l'opérateur d'affectation
+
+    std::cout << "Vecteur 1 : ";
+    for (int i = 0; i < vect1.taille(); ++i) {
+        std::cout << vect1[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Vecteur 2 : ";
+    for (int i = 0; i < vect2.taille(); ++i) {
+        std::cout << vect2[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Vecteur 3 : ";
+    for (int i = 0; i < vect3.taille(); ++i) {
+        std::cout << vect3[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
