@@ -1,0 +1,22 @@
+#include <iostream>
+
+template <typename T>
+T carre(const T& valeur) {
+    return valeur * valeur;
+}
+
+int main() {
+    int entier = 5;
+    double reel = 3.14;
+
+    // Utilisation de la fonction modèle pour calculer le carré de différents types de valeurs
+    int carreEntier = carre(entier);
+    double carreReel = carre(reel);
+
+    std::cout << "Carré de l'entier : " << carreEntier << std::endl;
+    std::cout << "Carré du nombre réel : " << carreReel << std::endl;
+
+    return 0;
+}
+
+
